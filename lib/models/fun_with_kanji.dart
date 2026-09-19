@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:isar_plus/isar_plus.dart';
@@ -23,7 +24,8 @@ class FunWithKanji {
         KanjiHintSchema,
       ];
 
-  Stream<void> get onChanges => isar.learningProgress.watchLazy();
+  Stream<void> get onChanges =>
+      kIsWeb ? const Stream<void>.empty() : isar.learningProgress.watchLazy();
 
   Widget builder(BuildContext context, Widget? child) => Provider<FunWithKanji>(
         create: (_) => this,

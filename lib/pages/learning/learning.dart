@@ -4,6 +4,7 @@ import 'dart:developer' as dev;
 import 'dart:io';
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fun_with_kanji/l10n/generated/l10n.dart';
@@ -291,7 +292,7 @@ class LearningController extends State<LearningPage> {
     ));
 
     // Play sound:
-    if (!Platform.isLinux) {
+    if (kIsWeb || !Platform.isLinux) {
       await _audioPlayer?.setAsset(
           "assets/sounds/${isCorrect ? learningProgress!.stars == 9 ? 'finished' : 'correct' : 'wrong'}.mp3");
       _audioPlayer?.play();
@@ -330,7 +331,7 @@ class LearningController extends State<LearningPage> {
       _audioPlayer = AudioPlayer();
     }
     if (preferences.getBool(ConfigKeys.readOutLoud) != false &&
-        !Platform.isLinux) {
+        (kIsWeb || !Platform.isLinux)) {
       tts = TextToSpeech();
       if ({
         WritingSystem.hiragana,
