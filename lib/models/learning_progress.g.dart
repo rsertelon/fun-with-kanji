@@ -3,463 +3,362 @@
 part of 'learning_progress.dart';
 
 // **************************************************************************
-// IsarCollectionGenerator
+// _IsarCollectionGenerator
 // **************************************************************************
 
 // coverage:ignore-file
-// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
+// ignore_for_file: duplicate_ignore, invalid_use_of_protected_member, lines_longer_than_80_chars, constant_identifier_names, avoid_js_rounded_ints, no_leading_underscores_for_local_identifiers, require_trailing_commas, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_in_if_null_operators, library_private_types_in_public_api, prefer_const_constructors
+// ignore_for_file: type=lint
 
 extension GetLearningProgressCollection on Isar {
-  IsarCollection<LearningProgress> get learningProgress => this.collection();
+  IsarCollection<int, LearningProgress> get learningProgress =>
+      this.collection();
 }
 
-const LearningProgressSchema = CollectionSchema(
-  name: r'LearningProgress',
-  id: -3307065871208801825,
-  properties: {
-    r'canLevelUp': PropertySchema(
-      id: 0,
-      name: r'canLevelUp',
-      type: IsarType.bool,
-    ),
-    r'characterId': PropertySchema(
-      id: 1,
-      name: r'characterId',
-      type: IsarType.long,
-    ),
-    r'lastCheckedAt': PropertySchema(
-      id: 2,
-      name: r'lastCheckedAt',
-      type: IsarType.dateTime,
-    ),
-    r'stars': PropertySchema(
-      id: 3,
-      name: r'stars',
-      type: IsarType.long,
-    ),
-    r'writingSystem': PropertySchema(
-      id: 4,
-      name: r'writingSystem',
-      type: IsarType.string,
-    )
-  },
-  estimateSize: _learningProgressEstimateSize,
-  serialize: _learningProgressSerialize,
-  deserialize: _learningProgressDeserialize,
-  deserializeProp: _learningProgressDeserializeProp,
-  idName: r'id',
-  indexes: {},
-  links: {},
-  embeddedSchemas: {},
-  getId: _learningProgressGetId,
-  getLinks: _learningProgressGetLinks,
-  attach: _learningProgressAttach,
-  version: '3.1.0+1',
+final LearningProgressSchema = IsarGeneratedSchema(
+  schema: IsarSchema(
+    name: 'LearningProgress',
+    idName: 'id',
+    embedded: false,
+    properties: [
+      IsarPropertySchema(
+        name: 'writingSystem',
+        type: IsarType.string,
+      ),
+      IsarPropertySchema(
+        name: 'characterId',
+        type: IsarType.long,
+      ),
+      IsarPropertySchema(
+        name: 'stars',
+        type: IsarType.long,
+      ),
+      IsarPropertySchema(
+        name: 'lastCheckedAt',
+        type: IsarType.dateTime,
+      ),
+      IsarPropertySchema(
+        name: 'canLevelUp',
+        type: IsarType.bool,
+      ),
+    ],
+    indexes: [],
+  ),
+  converter: IsarObjectConverter<int, LearningProgress>(
+    serialize: serializeLearningProgress,
+    deserialize: deserializeLearningProgress,
+    deserializeProperty: deserializeLearningProgressProp,
+  ),
+  getEmbeddedSchemas: () => [],
 );
 
-int _learningProgressEstimateSize(
-  LearningProgress object,
-  List<int> offsets,
-  Map<Type, List<int>> allOffsets,
-) {
-  var bytesCount = offsets.last;
-  bytesCount += 3 + object.writingSystem.length * 3;
-  return bytesCount;
-}
-
-void _learningProgressSerialize(
-  LearningProgress object,
-  IsarWriter writer,
-  List<int> offsets,
-  Map<Type, List<int>> allOffsets,
-) {
-  writer.writeBool(offsets[0], object.canLevelUp);
-  writer.writeLong(offsets[1], object.characterId);
-  writer.writeDateTime(offsets[2], object.lastCheckedAt);
-  writer.writeLong(offsets[3], object.stars);
-  writer.writeString(offsets[4], object.writingSystem);
-}
-
-LearningProgress _learningProgressDeserialize(
-  Id id,
-  IsarReader reader,
-  List<int> offsets,
-  Map<Type, List<int>> allOffsets,
-) {
-  final object = LearningProgress();
-  object.characterId = reader.readLong(offsets[1]);
-  object.id = id;
-  object.lastCheckedAt = reader.readDateTimeOrNull(offsets[2]);
-  object.stars = reader.readLong(offsets[3]);
-  object.writingSystem = reader.readString(offsets[4]);
-  return object;
-}
-
-P _learningProgressDeserializeProp<P>(
-  IsarReader reader,
-  int propertyId,
-  int offset,
-  Map<Type, List<int>> allOffsets,
-) {
-  switch (propertyId) {
-    case 0:
-      return (reader.readBool(offset)) as P;
-    case 1:
-      return (reader.readLong(offset)) as P;
-    case 2:
-      return (reader.readDateTimeOrNull(offset)) as P;
-    case 3:
-      return (reader.readLong(offset)) as P;
-    case 4:
-      return (reader.readString(offset)) as P;
-    default:
-      throw IsarError('Unknown property with id $propertyId');
-  }
-}
-
-Id _learningProgressGetId(LearningProgress object) {
+@isarProtected
+int serializeLearningProgress(IsarWriter writer, LearningProgress object) {
+  IsarCore.writeString(writer, 1, object.writingSystem);
+  IsarCore.writeLong(writer, 2, object.characterId);
+  IsarCore.writeLong(writer, 3, object.stars);
+  IsarCore.writeLong(
+      writer,
+      4,
+      object.lastCheckedAt?.toUtc().microsecondsSinceEpoch ??
+          -9223372036854775808);
+  IsarCore.writeBool(writer, 5, value: object.canLevelUp);
   return object.id;
 }
 
-List<IsarLinkBase<dynamic>> _learningProgressGetLinks(LearningProgress object) {
-  return [];
-}
-
-void _learningProgressAttach(
-    IsarCollection<dynamic> col, Id id, LearningProgress object) {
-  object.id = id;
-}
-
-extension LearningProgressQueryWhereSort
-    on QueryBuilder<LearningProgress, LearningProgress, QWhere> {
-  QueryBuilder<LearningProgress, LearningProgress, QAfterWhere> anyId() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(const IdWhereClause.any());
-    });
+@isarProtected
+LearningProgress deserializeLearningProgress(IsarReader reader) {
+  final object = LearningProgress();
+  object.id = IsarCore.readId(reader);
+  object.writingSystem = IsarCore.readString(reader, 1) ?? '';
+  object.characterId = IsarCore.readLong(reader, 2);
+  object.stars = IsarCore.readLong(reader, 3);
+  {
+    final value = IsarCore.readLong(reader, 4);
+    if (value == -9223372036854775808) {
+      object.lastCheckedAt = null;
+    } else {
+      object.lastCheckedAt =
+          DateTime.fromMicrosecondsSinceEpoch(value, isUtc: true).toLocal();
+    }
   }
+  return object;
 }
 
-extension LearningProgressQueryWhere
-    on QueryBuilder<LearningProgress, LearningProgress, QWhereClause> {
-  QueryBuilder<LearningProgress, LearningProgress, QAfterWhereClause> idEqualTo(
-      Id id) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IdWhereClause.between(
-        lower: id,
-        upper: id,
-      ));
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QAfterWhereClause>
-      idNotEqualTo(Id id) {
-    return QueryBuilder.apply(this, (query) {
-      if (query.whereSort == Sort.asc) {
-        return query
-            .addWhereClause(
-              IdWhereClause.lessThan(upper: id, includeUpper: false),
-            )
-            .addWhereClause(
-              IdWhereClause.greaterThan(lower: id, includeLower: false),
-            );
-      } else {
-        return query
-            .addWhereClause(
-              IdWhereClause.greaterThan(lower: id, includeLower: false),
-            )
-            .addWhereClause(
-              IdWhereClause.lessThan(upper: id, includeUpper: false),
-            );
+@isarProtected
+dynamic deserializeLearningProgressProp(IsarReader reader, int property) {
+  switch (property) {
+    case 0:
+      return IsarCore.readId(reader);
+    case 1:
+      return IsarCore.readString(reader, 1) ?? '';
+    case 2:
+      return IsarCore.readLong(reader, 2);
+    case 3:
+      return IsarCore.readLong(reader, 3);
+    case 4:
+      {
+        final value = IsarCore.readLong(reader, 4);
+        if (value == -9223372036854775808) {
+          return null;
+        } else {
+          return DateTime.fromMicrosecondsSinceEpoch(value, isUtc: true)
+              .toLocal();
+        }
       }
-    });
+    case 5:
+      return IsarCore.readBool(reader, 5);
+    default:
+      throw ArgumentError('Unknown property: $property');
   }
+}
 
-  QueryBuilder<LearningProgress, LearningProgress, QAfterWhereClause>
-      idGreaterThan(Id id, {bool include = false}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(
-        IdWhereClause.greaterThan(lower: id, includeLower: include),
-      );
-    });
-  }
+sealed class _LearningProgressUpdate {
+  bool call({
+    required int id,
+    String? writingSystem,
+    int? characterId,
+    int? stars,
+    DateTime? lastCheckedAt,
+    bool? canLevelUp,
+  });
+}
 
-  QueryBuilder<LearningProgress, LearningProgress, QAfterWhereClause>
-      idLessThan(Id id, {bool include = false}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(
-        IdWhereClause.lessThan(upper: id, includeUpper: include),
-      );
-    });
-  }
+class _LearningProgressUpdateImpl implements _LearningProgressUpdate {
+  const _LearningProgressUpdateImpl(this.collection);
 
-  QueryBuilder<LearningProgress, LearningProgress, QAfterWhereClause> idBetween(
-    Id lowerId,
-    Id upperId, {
-    bool includeLower = true,
-    bool includeUpper = true,
+  final IsarCollection<int, LearningProgress> collection;
+
+  @override
+  bool call({
+    required int id,
+    Object? writingSystem = ignore,
+    Object? characterId = ignore,
+    Object? stars = ignore,
+    Object? lastCheckedAt = ignore,
+    Object? canLevelUp = ignore,
   }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IdWhereClause.between(
-        lower: lowerId,
-        includeLower: includeLower,
-        upper: upperId,
-        includeUpper: includeUpper,
-      ));
+    return collection.updateProperties([
+          id
+        ], {
+          if (writingSystem != ignore) 1: writingSystem as String?,
+          if (characterId != ignore) 2: characterId as int?,
+          if (stars != ignore) 3: stars as int?,
+          if (lastCheckedAt != ignore) 4: lastCheckedAt as DateTime?,
+          if (canLevelUp != ignore) 5: canLevelUp as bool?,
+        }) >
+        0;
+  }
+}
+
+sealed class _LearningProgressUpdateAll {
+  int call({
+    required List<int> id,
+    String? writingSystem,
+    int? characterId,
+    int? stars,
+    DateTime? lastCheckedAt,
+    bool? canLevelUp,
+  });
+}
+
+class _LearningProgressUpdateAllImpl implements _LearningProgressUpdateAll {
+  const _LearningProgressUpdateAllImpl(this.collection);
+
+  final IsarCollection<int, LearningProgress> collection;
+
+  @override
+  int call({
+    required List<int> id,
+    Object? writingSystem = ignore,
+    Object? characterId = ignore,
+    Object? stars = ignore,
+    Object? lastCheckedAt = ignore,
+    Object? canLevelUp = ignore,
+  }) {
+    return collection.updateProperties(id, {
+      if (writingSystem != ignore) 1: writingSystem as String?,
+      if (characterId != ignore) 2: characterId as int?,
+      if (stars != ignore) 3: stars as int?,
+      if (lastCheckedAt != ignore) 4: lastCheckedAt as DateTime?,
+      if (canLevelUp != ignore) 5: canLevelUp as bool?,
     });
   }
+}
+
+extension LearningProgressUpdate on IsarCollection<int, LearningProgress> {
+  _LearningProgressUpdate get update => _LearningProgressUpdateImpl(this);
+
+  _LearningProgressUpdateAll get updateAll =>
+      _LearningProgressUpdateAllImpl(this);
+}
+
+sealed class _LearningProgressQueryUpdate {
+  int call({
+    String? writingSystem,
+    int? characterId,
+    int? stars,
+    DateTime? lastCheckedAt,
+    bool? canLevelUp,
+  });
+}
+
+class _LearningProgressQueryUpdateImpl implements _LearningProgressQueryUpdate {
+  const _LearningProgressQueryUpdateImpl(this.query, {this.limit});
+
+  final IsarQuery<LearningProgress> query;
+  final int? limit;
+
+  @override
+  int call({
+    Object? writingSystem = ignore,
+    Object? characterId = ignore,
+    Object? stars = ignore,
+    Object? lastCheckedAt = ignore,
+    Object? canLevelUp = ignore,
+  }) {
+    return query.updateProperties(limit: limit, {
+      if (writingSystem != ignore) 1: writingSystem as String?,
+      if (characterId != ignore) 2: characterId as int?,
+      if (stars != ignore) 3: stars as int?,
+      if (lastCheckedAt != ignore) 4: lastCheckedAt as DateTime?,
+      if (canLevelUp != ignore) 5: canLevelUp as bool?,
+    });
+  }
+}
+
+extension LearningProgressQueryUpdate on IsarQuery<LearningProgress> {
+  _LearningProgressQueryUpdate get updateFirst =>
+      _LearningProgressQueryUpdateImpl(this, limit: 1);
+
+  _LearningProgressQueryUpdate get updateAll =>
+      _LearningProgressQueryUpdateImpl(this);
+}
+
+class _LearningProgressQueryBuilderUpdateImpl
+    implements _LearningProgressQueryUpdate {
+  const _LearningProgressQueryBuilderUpdateImpl(this.query, {this.limit});
+
+  final QueryBuilder<LearningProgress, LearningProgress, QOperations> query;
+  final int? limit;
+
+  @override
+  int call({
+    Object? writingSystem = ignore,
+    Object? characterId = ignore,
+    Object? stars = ignore,
+    Object? lastCheckedAt = ignore,
+    Object? canLevelUp = ignore,
+  }) {
+    final q = query.build();
+    try {
+      return q.updateProperties(limit: limit, {
+        if (writingSystem != ignore) 1: writingSystem as String?,
+        if (characterId != ignore) 2: characterId as int?,
+        if (stars != ignore) 3: stars as int?,
+        if (lastCheckedAt != ignore) 4: lastCheckedAt as DateTime?,
+        if (canLevelUp != ignore) 5: canLevelUp as bool?,
+      });
+    } finally {
+      q.close();
+    }
+  }
+}
+
+extension LearningProgressQueryBuilderUpdate
+    on QueryBuilder<LearningProgress, LearningProgress, QOperations> {
+  _LearningProgressQueryUpdate get updateFirst =>
+      _LearningProgressQueryBuilderUpdateImpl(this, limit: 1);
+
+  _LearningProgressQueryUpdate get updateAll =>
+      _LearningProgressQueryBuilderUpdateImpl(this);
 }
 
 extension LearningProgressQueryFilter
     on QueryBuilder<LearningProgress, LearningProgress, QFilterCondition> {
   QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
-      canLevelUpEqualTo(bool value) {
+      idEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'canLevelUp',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
-      characterIdEqualTo(int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'characterId',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
-      characterIdGreaterThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'characterId',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
-      characterIdLessThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'characterId',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
-      characterIdBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'characterId',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
-      idEqualTo(Id value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'id',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 0,
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
       idGreaterThan(
-    Id value, {
-    bool include = false,
-  }) {
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'id',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 0,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      idGreaterThanOrEqualTo(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 0,
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
       idLessThan(
-    Id value, {
-    bool include = false,
-  }) {
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'id',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        LessCondition(
+          property: 0,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      idLessThanOrEqualTo(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 0,
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
       idBetween(
-    Id lower,
-    Id upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'id',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
-      lastCheckedAtIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'lastCheckedAt',
-      ));
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
-      lastCheckedAtIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'lastCheckedAt',
-      ));
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
-      lastCheckedAtEqualTo(DateTime? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'lastCheckedAt',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
-      lastCheckedAtGreaterThan(
-    DateTime? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'lastCheckedAt',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
-      lastCheckedAtLessThan(
-    DateTime? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'lastCheckedAt',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
-      lastCheckedAtBetween(
-    DateTime? lower,
-    DateTime? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'lastCheckedAt',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
-      starsEqualTo(int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'stars',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
-      starsGreaterThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'stars',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
-      starsLessThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'stars',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
-      starsBetween(
     int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
+    int upper,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'stars',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 0,
+          lower: lower,
+          upper: upper,
+        ),
+      );
     });
   }
 
@@ -469,43 +368,77 @@ extension LearningProgressQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'writingSystem',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
       writingSystemGreaterThan(
     String value, {
-    bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'writingSystem',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      writingSystemGreaterThanOrEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
       writingSystemLessThan(
     String value, {
-    bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'writingSystem',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        LessCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      writingSystemLessThanOrEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -513,19 +446,17 @@ extension LearningProgressQueryFilter
       writingSystemBetween(
     String lower,
     String upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'writingSystem',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 1,
+          lower: lower,
+          upper: upper,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -535,11 +466,13 @@ extension LearningProgressQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'writingSystem',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        StartsWithCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -549,53 +482,349 @@ extension LearningProgressQueryFilter
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'writingSystem',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        EndsWithCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
       writingSystemContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'writingSystem',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        ContainsCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
       writingSystemMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'writingSystem',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        MatchesCondition(
+          property: 1,
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
       writingSystemIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'writingSystem',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        const EqualCondition(
+          property: 1,
+          value: '',
+        ),
+      );
     });
   }
 
   QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
       writingSystemIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'writingSystem',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        const GreaterCondition(
+          property: 1,
+          value: '',
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      characterIdEqualTo(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 2,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      characterIdGreaterThan(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 2,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      characterIdGreaterThanOrEqualTo(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 2,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      characterIdLessThan(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessCondition(
+          property: 2,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      characterIdLessThanOrEqualTo(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 2,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      characterIdBetween(
+    int lower,
+    int upper,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 2,
+          lower: lower,
+          upper: upper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      starsEqualTo(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 3,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      starsGreaterThan(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 3,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      starsGreaterThanOrEqualTo(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 3,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      starsLessThan(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessCondition(
+          property: 3,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      starsLessThanOrEqualTo(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 3,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      starsBetween(
+    int lower,
+    int upper,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 3,
+          lower: lower,
+          upper: upper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      lastCheckedAtIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const IsNullCondition(property: 4));
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      lastCheckedAtIsNotNull() {
+    return QueryBuilder.apply(not(), (query) {
+      return query.addFilterCondition(const IsNullCondition(property: 4));
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      lastCheckedAtEqualTo(
+    DateTime? value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 4,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      lastCheckedAtGreaterThan(
+    DateTime? value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 4,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      lastCheckedAtGreaterThanOrEqualTo(
+    DateTime? value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 4,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      lastCheckedAtLessThan(
+    DateTime? value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessCondition(
+          property: 4,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      lastCheckedAtLessThanOrEqualTo(
+    DateTime? value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 4,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      lastCheckedAtBetween(
+    DateTime? lower,
+    DateTime? upper,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 4,
+          lower: lower,
+          upper: upper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterFilterCondition>
+      canLevelUpEqualTo(
+    bool value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 5,
+          value: value,
+        ),
+      );
     });
   }
 }
@@ -603,242 +832,344 @@ extension LearningProgressQueryFilter
 extension LearningProgressQueryObject
     on QueryBuilder<LearningProgress, LearningProgress, QFilterCondition> {}
 
-extension LearningProgressQueryLinks
-    on QueryBuilder<LearningProgress, LearningProgress, QFilterCondition> {}
-
 extension LearningProgressQuerySortBy
     on QueryBuilder<LearningProgress, LearningProgress, QSortBy> {
-  QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
-      sortByCanLevelUp() {
+  QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy> sortById() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'canLevelUp', Sort.asc);
+      return query.addSortBy(0);
     });
   }
 
   QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
-      sortByCanLevelUpDesc() {
+      sortByIdDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'canLevelUp', Sort.desc);
+      return query.addSortBy(0, sort: Sort.desc);
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
+      sortByWritingSystem({bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(
+        1,
+        caseSensitive: caseSensitive,
+      );
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
+      sortByWritingSystemDesc({bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(
+        1,
+        sort: Sort.desc,
+        caseSensitive: caseSensitive,
+      );
     });
   }
 
   QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
       sortByCharacterId() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'characterId', Sort.asc);
+      return query.addSortBy(2);
     });
   }
 
   QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
       sortByCharacterIdDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'characterId', Sort.desc);
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
-      sortByLastCheckedAt() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'lastCheckedAt', Sort.asc);
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
-      sortByLastCheckedAtDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'lastCheckedAt', Sort.desc);
+      return query.addSortBy(2, sort: Sort.desc);
     });
   }
 
   QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy> sortByStars() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'stars', Sort.asc);
+      return query.addSortBy(3);
     });
   }
 
   QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
       sortByStarsDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'stars', Sort.desc);
+      return query.addSortBy(3, sort: Sort.desc);
     });
   }
 
   QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
-      sortByWritingSystem() {
+      sortByLastCheckedAt() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'writingSystem', Sort.asc);
+      return query.addSortBy(4);
     });
   }
 
   QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
-      sortByWritingSystemDesc() {
+      sortByLastCheckedAtDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'writingSystem', Sort.desc);
+      return query.addSortBy(4, sort: Sort.desc);
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
+      sortByCanLevelUp() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(5);
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
+      sortByCanLevelUpDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(5, sort: Sort.desc);
     });
   }
 }
 
 extension LearningProgressQuerySortThenBy
     on QueryBuilder<LearningProgress, LearningProgress, QSortThenBy> {
-  QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
-      thenByCanLevelUp() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'canLevelUp', Sort.asc);
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
-      thenByCanLevelUpDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'canLevelUp', Sort.desc);
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
-      thenByCharacterId() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'characterId', Sort.asc);
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
-      thenByCharacterIdDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'characterId', Sort.desc);
-    });
-  }
-
   QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.asc);
+      return query.addSortBy(0);
     });
   }
 
   QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
       thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.desc);
+      return query.addSortBy(0, sort: Sort.desc);
     });
   }
 
   QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
-      thenByLastCheckedAt() {
+      thenByWritingSystem({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'lastCheckedAt', Sort.asc);
+      return query.addSortBy(1, caseSensitive: caseSensitive);
     });
   }
 
   QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
-      thenByLastCheckedAtDesc() {
+      thenByWritingSystemDesc({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'lastCheckedAt', Sort.desc);
+      return query.addSortBy(1, sort: Sort.desc, caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
+      thenByCharacterId() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(2);
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
+      thenByCharacterIdDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(2, sort: Sort.desc);
     });
   }
 
   QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy> thenByStars() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'stars', Sort.asc);
+      return query.addSortBy(3);
     });
   }
 
   QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
       thenByStarsDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'stars', Sort.desc);
+      return query.addSortBy(3, sort: Sort.desc);
     });
   }
 
   QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
-      thenByWritingSystem() {
+      thenByLastCheckedAt() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'writingSystem', Sort.asc);
+      return query.addSortBy(4);
     });
   }
 
   QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
-      thenByWritingSystemDesc() {
+      thenByLastCheckedAtDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'writingSystem', Sort.desc);
+      return query.addSortBy(4, sort: Sort.desc);
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
+      thenByCanLevelUp() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(5);
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterSortBy>
+      thenByCanLevelUpDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(5, sort: Sort.desc);
     });
   }
 }
 
 extension LearningProgressQueryWhereDistinct
     on QueryBuilder<LearningProgress, LearningProgress, QDistinct> {
-  QueryBuilder<LearningProgress, LearningProgress, QDistinct>
-      distinctByCanLevelUp() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'canLevelUp');
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QDistinct>
-      distinctByCharacterId() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'characterId');
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QDistinct>
-      distinctByLastCheckedAt() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'lastCheckedAt');
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QDistinct>
-      distinctByStars() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'stars');
-    });
-  }
-
-  QueryBuilder<LearningProgress, LearningProgress, QDistinct>
+  QueryBuilder<LearningProgress, LearningProgress, QAfterDistinct>
       distinctByWritingSystem({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'writingSystem',
-          caseSensitive: caseSensitive);
+      return query.addDistinctBy(1, caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterDistinct>
+      distinctByCharacterId() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(2);
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterDistinct>
+      distinctByStars() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(3);
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterDistinct>
+      distinctByLastCheckedAt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(4);
+    });
+  }
+
+  QueryBuilder<LearningProgress, LearningProgress, QAfterDistinct>
+      distinctByCanLevelUp() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(5);
     });
   }
 }
 
-extension LearningProgressQueryProperty
-    on QueryBuilder<LearningProgress, LearningProgress, QQueryProperty> {
-  QueryBuilder<LearningProgress, int, QQueryOperations> idProperty() {
+extension LearningProgressQueryProperty1
+    on QueryBuilder<LearningProgress, LearningProgress, QProperty> {
+  QueryBuilder<LearningProgress, int, QAfterProperty> idProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'id');
+      return query.addProperty(0);
     });
   }
 
-  QueryBuilder<LearningProgress, bool, QQueryOperations> canLevelUpProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'canLevelUp');
-    });
-  }
-
-  QueryBuilder<LearningProgress, int, QQueryOperations> characterIdProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'characterId');
-    });
-  }
-
-  QueryBuilder<LearningProgress, DateTime?, QQueryOperations>
-      lastCheckedAtProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'lastCheckedAt');
-    });
-  }
-
-  QueryBuilder<LearningProgress, int, QQueryOperations> starsProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'stars');
-    });
-  }
-
-  QueryBuilder<LearningProgress, String, QQueryOperations>
+  QueryBuilder<LearningProgress, String, QAfterProperty>
       writingSystemProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'writingSystem');
+      return query.addProperty(1);
+    });
+  }
+
+  QueryBuilder<LearningProgress, int, QAfterProperty> characterIdProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(2);
+    });
+  }
+
+  QueryBuilder<LearningProgress, int, QAfterProperty> starsProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(3);
+    });
+  }
+
+  QueryBuilder<LearningProgress, DateTime?, QAfterProperty>
+      lastCheckedAtProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(4);
+    });
+  }
+
+  QueryBuilder<LearningProgress, bool, QAfterProperty> canLevelUpProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(5);
+    });
+  }
+}
+
+extension LearningProgressQueryProperty2<R>
+    on QueryBuilder<LearningProgress, R, QAfterProperty> {
+  QueryBuilder<LearningProgress, (R, int), QAfterProperty> idProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(0);
+    });
+  }
+
+  QueryBuilder<LearningProgress, (R, String), QAfterProperty>
+      writingSystemProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(1);
+    });
+  }
+
+  QueryBuilder<LearningProgress, (R, int), QAfterProperty>
+      characterIdProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(2);
+    });
+  }
+
+  QueryBuilder<LearningProgress, (R, int), QAfterProperty> starsProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(3);
+    });
+  }
+
+  QueryBuilder<LearningProgress, (R, DateTime?), QAfterProperty>
+      lastCheckedAtProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(4);
+    });
+  }
+
+  QueryBuilder<LearningProgress, (R, bool), QAfterProperty>
+      canLevelUpProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(5);
+    });
+  }
+}
+
+extension LearningProgressQueryProperty3<R1, R2>
+    on QueryBuilder<LearningProgress, (R1, R2), QAfterProperty> {
+  QueryBuilder<LearningProgress, (R1, R2, int), QOperations> idProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(0);
+    });
+  }
+
+  QueryBuilder<LearningProgress, (R1, R2, String), QOperations>
+      writingSystemProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(1);
+    });
+  }
+
+  QueryBuilder<LearningProgress, (R1, R2, int), QOperations>
+      characterIdProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(2);
+    });
+  }
+
+  QueryBuilder<LearningProgress, (R1, R2, int), QOperations> starsProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(3);
+    });
+  }
+
+  QueryBuilder<LearningProgress, (R1, R2, DateTime?), QOperations>
+      lastCheckedAtProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(4);
+    });
+  }
+
+  QueryBuilder<LearningProgress, (R1, R2, bool), QOperations>
+      canLevelUpProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(5);
     });
   }
 }
