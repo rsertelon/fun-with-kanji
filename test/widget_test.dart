@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:isar/isar.dart';
+import 'package:isar_plus/isar_plus.dart';
 
 import 'package:fun_with_kanji/models/fun_with_kanji.dart';
 import 'package:fun_with_kanji/widgets/fun_with_kanji_app.dart';
@@ -16,9 +16,11 @@ import 'package:fun_with_kanji/widgets/fun_with_kanji_app.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     WidgetsFlutterBinding.ensureInitialized();
-    final isar = await Isar.open(
-      FunWithKanji.isarSchemas,
+    await Isar.initialize();
+    final isar = Isar.open(
+      schemas: FunWithKanji.isarSchemas,
       directory: './',
+      engine: IsarEngine.sqlite,
     );
     await tester.pumpWidget(FunWithKanjiApp(isar: isar));
   });

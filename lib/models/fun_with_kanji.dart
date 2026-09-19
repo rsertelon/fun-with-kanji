@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:isar/isar.dart';
+import 'package:isar_plus/isar_plus.dart';
 import 'package:provider/provider.dart';
 
 import 'package:fun_with_kanji/models/kanji_hint.dart';
@@ -18,7 +18,7 @@ class FunWithKanji {
   static const int radicalsMax = 229 * maxStars;
   static const int kanjiMax = 267 * maxStars;
 
-  static List<CollectionSchema<dynamic>> get isarSchemas => [
+  static List<IsarGeneratedSchema> get isarSchemas => [
         LearningProgressSchema,
         KanjiHintSchema,
       ];
@@ -36,8 +36,8 @@ class FunWithKanji {
       );
 
   Future<int> loadProgressPercent(WritingSystem system) async =>
-      (((await isar.learningProgress
-                      .filter()
+      (((isar.learningProgress
+                      .where()
                       .writingSystemEqualTo(system.name)
                       .starsProperty()
                       .sum()) /
@@ -48,8 +48,8 @@ class FunWithKanji {
 
   Future<LearningProgress> getLearningProgress(
           WritingSystem system, int id) async =>
-      (await isar.learningProgress
-              .filter()
+      (isar.learningProgress
+              .where()
               .writingSystemEqualTo(system.name)
               .and()
               .characterIdEqualTo(id)
@@ -58,8 +58,9 @@ class FunWithKanji {
         ..characterId = id
         ..writingSystem = system.name;
 
-  Future<int> getFinishedCount(WritingSystem system) => isar.learningProgress
-      .filter()
+  Future<int> getFinishedCount(WritingSystem system) async => isar
+      .learningProgress
+      .where()
       .writingSystemEqualTo(system.name)
       .and()
       .starsEqualTo(10)
@@ -71,8 +72,8 @@ class FunWithKanji {
     int characterId, {
     int choicesCount = 2,
   }) async {
-    var available = await isar.learningProgress
-        .filter()
+    var available = isar.learningProgress
+        .where()
         .writingSystemEqualTo(system.name)
         .and()
         .not()
@@ -84,17 +85,17 @@ class FunWithKanji {
 
   Future<List<LearningProgress>> getLearnInProgressCharacters(
     WritingSystem system,
-  ) =>
+  ) async =>
       isar.learningProgress
-          .filter()
+          .where()
           .writingSystemEqualTo(system.name)
           .and()
           .starsLessThan(10)
           .findAll();
 
   Future<int> getNextLearnCharacter(WritingSystem system) async {
-    final nextId = (await isar.learningProgress
-            .filter()
+    final nextId = (isar.learningProgress
+            .where()
             .writingSystemEqualTo(system.name)
             .sortByCharacterIdDesc()
             .findFirst())
@@ -105,9 +106,9 @@ class FunWithKanji {
 
   Future<List<LearningProgress>> getLearnedCharacters(
     WritingSystem system,
-  ) =>
+  ) async =>
       isar.learningProgress
-          .filter()
+          .where()
           .writingSystemEqualTo(system.name)
           .and()
           .starsEqualTo(10)
@@ -117,75 +118,75 @@ class FunWithKanji {
     WritingSystem system,
     int id,
     int stars,
-  ) =>
-      isar.writeTxn(() async {
-        final progress = await isar.learningProgress
-                .filter()
+  ) async =>
+      isar.write((isar) {
+        final progress = isar.learningProgress
+                .where()
                 .writingSystemEqualTo(system.name)
                 .and()
                 .characterIdEqualTo(id)
                 .findFirst() ??
-            LearningProgress()
-          ..characterId = id
-          ..writingSystem = system.name;
+            (LearningProgress()
+              ..id = isar.learningProgress.autoIncrement()
+              ..characterId = id
+              ..writingSystem = system.name);
         progress.stars = stars;
         progress.lastCheckedAt = DateTime.now();
-        await isar.learningProgress.put(progress);
+        isar.learningProgress.put(progress);
       });
 
-  Future<void> resetLearningProgress() => isar.writeTxn(() => isar.clear());
+  Future<void> resetLearningProgress() async => isar.write((isar) => isar.clear());
 
-  Future<void> resetLearningProgressForSystem(WritingSystem system) =>
-      isar.writeTxn(
-        () => isar.learningProgress
-            .filter()
+  Future<void> resetLearningProgressForSystem(WritingSystem system) async =>
+      isar.write(
+        (isar) => isar.learningProgress
+            .where()
             .writingSystemEqualTo(system.name)
             .deleteAll(),
       );
 
-  Future<String?> loadHint(WritingSystem system, int id) => isar.kanjiHints
-      .filter()
+  Future<String?> loadHint(WritingSystem system, int id) async => isar
+      .kanjiHints
+      .where()
       .writingSystemEqualTo(system.name)
       .and()
       .characterIdEqualTo(id)
       .findFirst()
-      .then((hint) => hint?.hint);
+      ?.hint;
 
   Future<void> setHint(
     WritingSystem system,
     int id,
     String hintText,
-  ) =>
-      isar.writeTxn(() async {
-        final hint = await isar.kanjiHints
-                .filter()
+  ) async =>
+      isar.write((isar) {
+        final hint = isar.kanjiHints
+                .where()
                 .writingSystemEqualTo(system.name)
                 .and()
                 .characterIdEqualTo(id)
                 .findFirst() ??
-            KanjiHint()
-          ..characterId = id
-          ..writingSystem = system.name;
+            (KanjiHint()
+              ..id = isar.kanjiHints.autoIncrement()
+              ..characterId = id
+              ..writingSystem = system.name);
         hint.hint = hintText;
-        await isar.kanjiHints.put(hint);
+        isar.kanjiHints.put(hint);
       });
 
   Future<Map<String, dynamic>> export() async => {
-        'learningProgress': await isar.learningProgress
-            .filter()
-            .starsGreaterThan(0)
-            .exportJson(),
-        'hints':
-            await isar.kanjiHints.filter().not().hintEqualTo('').exportJson(),
+        'learningProgress':
+            isar.learningProgress.where().starsGreaterThan(0).exportJson(),
+        'hints': isar.kanjiHints.where().not().hintEqualTo('').exportJson(),
       };
 
   Future<void> import(Map<String, dynamic> json) async {
-    isar.writeTxn(() async {
-      await isar.learningProgress.importJson(
+    isar.write((isar) {
+      isar.learningProgress.importJson(
           List<Map<String, dynamic>>.from(json['learningProgress']));
     });
-    isar.writeTxn(() async {
-      await isar.kanjiHints
+    isar.write((isar) {
+      isar.kanjiHints
           .importJson(List<Map<String, dynamic>>.from(json['hints']));
     });
   }

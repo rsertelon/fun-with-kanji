@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:isar/isar.dart';
+import 'package:isar_plus/isar_plus.dart';
 
 import 'package:fun_with_kanji/utils/writing_system.dart';
 
@@ -8,7 +8,7 @@ part 'learning_progress.g.dart';
 
 @Collection()
 class LearningProgress {
-  Id id = Isar.autoIncrement;
+  int id = 0;
 
   String writingSystem = WritingSystem.hiragana.name;
   int characterId = 0;
