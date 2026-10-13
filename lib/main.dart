@@ -13,7 +13,9 @@ import 'package:fun_with_kanji/widgets/fun_with_kanji_app.dart';
 void main() async {
   log('Welcome to Fun With Kanji <3');
   WidgetsFlutterBinding.ensureInitialized();
-  await Isar.initialize();
+  // On web, load isar_plus.wasm/.js from web/ instead of unpkg.com.
+  // Both files must match the isar_plus version in pubspec.lock.
+  await Isar.initialize(kIsWeb ? 'isar_plus.wasm' : null);
   final directory = kIsWeb
       ? null
       : Platform.isLinux

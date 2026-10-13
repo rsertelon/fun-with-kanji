@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -7,6 +8,9 @@ ThemeData buildTheme(ColorScheme? scheme, Color? primaryColor, bool isLight) =>
     ThemeData(
       brightness: isLight ? Brightness.light : Brightness.dark,
       useMaterial3: true,
+      // Web has no system fonts: without a bundled one, Flutter fetches
+      // fallback fonts from fonts.gstatic.com at runtime.
+      fontFamily: kIsWeb ? 'NotoSansJP' : null,
       colorScheme: primaryColor != null ? null : scheme,
       appBarTheme: AppBarTheme(
         systemOverlayStyle: SystemUiOverlayStyle(
